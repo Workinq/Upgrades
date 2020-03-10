@@ -6,11 +6,13 @@
 
     <groupId>kr.kieran.upgrades</groupId>
     <artifactId>UpgradesPlugin</artifactId>
-    <version>2.14.0</version>
+    <version>2.15.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>Upgrades</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.author>Kieraaaan</project.author>
     </properties>
 
     <build>
@@ -72,31 +74,23 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.mcMMO-Dev</groupId>
-            <artifactId>mcMMO</artifactId>
-            <version>4246f5</version>
+            <groupId>com.massivecraft.massivecore</groupId>
+            <artifactId>MassiveCore</artifactId>
+            <version>2.15.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>kr.kieran.stoneagetokens</groupId>
-            <artifactId>Tokens</artifactId>
+            <groupId>com.github.SaberLLC</groupId>
+            <artifactId>Saber-Factions</artifactId>
+            <version>2.2.7-STABLE</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>kr.kieran.coins</groupId>
+            <artifactId>Coins</artifactId>
             <version>2.14.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Tokens.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>gg.halcyon.outpost</groupId>
-            <artifactId>Outpost</artifactId>
-            <version>2.13.7</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Outpost.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.jdgames.mobextras</groupId>
-            <artifactId>MobExtras</artifactId>
-            <version>2.13.7</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/MobExtras.jar</systemPath>
+            <systemPath>${project.basedir}/lib/Coins.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>net.brcdev</groupId>
@@ -104,20 +98,6 @@
             <version>1.19.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/ShopGUIPlus.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.massivecraft.massivecore</groupId>
-            <artifactId>MassiveCore</artifactId>
-            <version>2.14.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/MassiveCore.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.massivecraft.Factions</groupId>
-            <artifactId>Factions</artifactId>
-            <version>2.14.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/MassiveFactions.jar</systemPath>
         </dependency>
     </dependencies>
 

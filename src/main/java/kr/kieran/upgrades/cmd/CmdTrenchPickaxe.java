@@ -14,6 +14,7 @@ import kr.kieran.upgrades.entity.Tools;
 import kr.kieran.upgrades.enums.ToolType;
 import kr.kieran.upgrades.util.ItemBuilder;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public class CmdTrenchPickaxe extends MassiveCommand {
 
     private static CmdTrenchPickaxe i = new CmdTrenchPickaxe();
 
-    public CmdTrenchPickaxe() {
+    public CmdTrenchPickaxe()
+    {
         this.addParameter(TypePlayer.get(), "player");
         this.addParameter(TypeInteger.get(), "radius");
         this.addParameter(TypeInteger.get(), "amount", "1");
@@ -31,32 +33,42 @@ public class CmdTrenchPickaxe extends MassiveCommand {
         this.addRequirements(RequirementHasPerm.get(Perm.TRENCH_PICKAXE));
     }
 
-    public static CmdTrenchPickaxe get() {
+    public static CmdTrenchPickaxe get()
+    {
         return i;
     }
 
     @Override
-    public List<String> getAliases() {
+    public List<String> getAliases()
+    {
         return MConf.get().trenchPickAliases;
     }
 
     @Override
-    public void perform() throws MassiveException {
+    public void perform() throws MassiveException
+    {
         Player player = this.readArgAt(0);
         int radius = this.readArgAt(1);
         int amount = this.readArgAt(2, 1);
         boolean silent = this.readArgAt(3, false);
         List<String> lore = new ArrayList<>();
-        for (String string : Tools.get().trenchPickaxeLore) {
+        for (String string : Tools.get().trenchPickaxeLore)
+        {
             lore.add(Txt.parse(string.replace("%radius%", String.valueOf(radius))));
         }
-        ItemStack trenchPickaxe = new ItemBuilder(Tools.get().trenchPickaxeMaterial).name(Txt.parse(Tools.get().trenchPickaxeName)).setLore(lore).amount(amount).unbreakable(true);
-        if (player.getInventory().firstEmpty() == -1) {
+        ItemStack trenchPickaxe = new ItemBuilder(Tools.get().trenchPickaxeMaterial).name(Txt.parse(Tools.get().trenchPickaxeName)).setLore(lore).amount(amount).unbreakable(true).flag(ItemFlag.HIDE_ATTRIBUTES);
+        if (player.getInventory().firstEmpty() == -1)
+        {
             player.getWorld().dropItemNaturally(player.getLocation(), trenchPickaxe);
-        } else {
+        }
+        else
+        {
             player.getInventory().addItem(trenchPickaxe);
         }
-        if (!silent) MixinMessage.get().msgOne(player, MConf.get().receivedTool, amount, ToolType.TRENCH_PICKAXE.getName());
+        if (!silent)
+        {
+            MixinMessage.get().msgOne(player, MConf.get().receivedTool, amount, ToolType.TRENCH_PICKAXE.getName());
+        }
         MixinMessage.get().msgOne(sender, MConf.get().gaveTool, player.getName(), amount, ToolType.TRENCH_PICKAXE.getName());
     }
 

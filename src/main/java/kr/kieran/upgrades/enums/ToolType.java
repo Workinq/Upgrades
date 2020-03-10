@@ -15,26 +15,37 @@ public enum ToolType {
     private String alias;
     private int maxLevel;
 
-    ToolType(String name, String alias, int maxLevel) {
+    ToolType(String name, String alias, int maxLevel)
+    {
         this.name = name;
         this.alias = alias;
         this.maxLevel = maxLevel;
     }
 
-    public static ToolType getByAlias(String alias) {
-        for (ToolType type : ToolType.values()) if (type.getAlias().equals(alias)) return type;
+    public static ToolType getByAlias(String alias)
+    {
+        for (ToolType type : ToolType.values())
+        {
+            if (type.getAlias().equals(alias))
+            {
+                return type;
+            }
+        }
         return null;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public String getAlias() {
+    public String getAlias()
+    {
         return alias;
     }
 
-    public int getMaxLevel() {
+    public int getMaxLevel()
+    {
         return maxLevel;
     }
 

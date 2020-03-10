@@ -16,6 +16,7 @@ import kr.kieran.upgrades.util.ItemBuilder;
 import kr.kieran.upgrades.util.LevelUtil;
 import kr.kieran.upgrades.cmd.type.TypeTool;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -24,7 +25,8 @@ public class CmdTools extends MassiveCommand {
 
     private static CmdTools i = new CmdTools();
 
-    public CmdTools() {
+    public CmdTools()
+    {
         this.addParameter(TypePlayer.get(), "player");
         this.addParameter(TypeTool.get(), "tool");
         this.addParameter(TypeInteger.get(), "level", "0");
@@ -33,67 +35,79 @@ public class CmdTools extends MassiveCommand {
         this.addRequirements(RequirementHasPerm.get(Perm.TOOLS));
     }
 
-    public static CmdTools get() {
+    public static CmdTools get()
+    {
         return i;
     }
 
     @Override
-    public List<String> getAliases() {
+    public List<String> getAliases()
+    {
         return MConf.get().toolsAliases;
     }
 
     @Override
-    public void perform() throws MassiveException {
+    public void perform() throws MassiveException
+    {
         Player player = this.readArgAt(0);
         ToolType type = this.readArgAt(1);
         int level = this.readArgAt(2, 0);
         int amount = this.readArgAt(3, 1);
         boolean silent = this.readArgAt(4, false);
-        if (type == null) {
+        if (type == null)
+        {
             MixinMessage.get().msgOne(sender, MConf.get().invalidTool);
             return;
         }
         ItemStack item;
-        switch (type) {
+        switch (type)
+        {
             case CRAFT_WAND:
-                item = new ItemBuilder(Tools.get().craftWandMaterial).name(Txt.parse(Tools.get().craftWandName)).setLore(Txt.parse(Tools.get().craftWandLore)).amount(amount).unbreakable(true);
+                item = new ItemBuilder(Tools.get().craftWandMaterial).name(Txt.parse(Tools.get().craftWandName)).setLore(Txt.parse(Tools.get().craftWandLore)).amount(amount).unbreakable(true).flag(ItemFlag.HIDE_ATTRIBUTES);
                 break;
             case FISHING_ROD:
-                item = new ItemBuilder(Tools.get().fishingRodMaterial).name(Txt.parse(Tools.get().fishingRodName)).setLore(Txt.parse(Tools.get().fishingRodLore)).amount(amount).unbreakable(true);
+                item = new ItemBuilder(Tools.get().fishingRodMaterial).name(Txt.parse(Tools.get().fishingRodName)).setLore(Txt.parse(Tools.get().fishingRodLore)).amount(amount).unbreakable(true).flag(ItemFlag.HIDE_ATTRIBUTES);
                 LevelUtil.increaseFishingRod(item, level);
                 break;
             case HARVESTER_HOE:
-                item = new ItemBuilder(Tools.get().harvesterHoeMaterial).name(Txt.parse(Tools.get().harvesterHoeName)).setLore(Txt.parse(Tools.get().harvesterHoeLore)).amount(amount).unbreakable(true);
+                item = new ItemBuilder(Tools.get().harvesterHoeMaterial).name(Txt.parse(Tools.get().harvesterHoeName)).setLore(Txt.parse(Tools.get().harvesterHoeLore)).amount(amount).unbreakable(true).flag(ItemFlag.HIDE_ATTRIBUTES);
                 LevelUtil.increaseHarvesterHoe(item, level);
                 break;
             case LIGHTNING_WAND:
-                item = new ItemBuilder(Tools.get().lightningWandMaterial).name(Txt.parse(Tools.get().lightningWandName)).setLore(Txt.parse(Tools.get().lightningWandLore)).amount(amount).unbreakable(true);
+                item = new ItemBuilder(Tools.get().lightningWandMaterial).name(Txt.parse(Tools.get().lightningWandName)).setLore(Txt.parse(Tools.get().lightningWandLore)).amount(amount).unbreakable(true).flag(ItemFlag.HIDE_ATTRIBUTES);
                 break;
             case SAND_WAND:
-                item = new ItemBuilder(Tools.get().sandWandMaterial).name(Txt.parse(Tools.get().sandWandName)).setLore(Txt.parse(Tools.get().sandWandLore)).amount(amount).unbreakable(true);
+                item = new ItemBuilder(Tools.get().sandWandMaterial).name(Txt.parse(Tools.get().sandWandName)).setLore(Txt.parse(Tools.get().sandWandLore)).amount(amount).unbreakable(true).flag(ItemFlag.HIDE_ATTRIBUTES);
                 break;
             case SELL_WAND:
-                item = new ItemBuilder(Tools.get().sellWandMaterial).name(Txt.parse(Tools.get().sellWandName)).setLore(Txt.parse(Tools.get().sellWandLore)).amount(amount).unbreakable(true);
+                item = new ItemBuilder(Tools.get().sellWandMaterial).name(Txt.parse(Tools.get().sellWandName)).setLore(Txt.parse(Tools.get().sellWandLore)).amount(amount).unbreakable(true).flag(ItemFlag.HIDE_ATTRIBUTES);
                 LevelUtil.increaseSellWand(item, level);
                 break;
             case TRAY_PICKAXE:
-                item = new ItemBuilder(Tools.get().trayPickaxeMaterial).name(Txt.parse(Tools.get().trayPickaxeName)).setLore(Txt.parse(Tools.get().trayPickaxeLore)).amount(amount).unbreakable(true);
+                item = new ItemBuilder(Tools.get().trayPickaxeMaterial).name(Txt.parse(Tools.get().trayPickaxeName)).setLore(Txt.parse(Tools.get().trayPickaxeLore)).amount(amount).unbreakable(true).flag(ItemFlag.HIDE_ATTRIBUTES);
                 break;
             case TRENCH_PICKAXE:
             default:
                 item = null;
                 break;
         }
-        if (item == null) {
+        if (item == null)
+        {
             MixinMessage.get().msgOne(sender, MConf.get().invalidTool);
             return;
         }
-        if (player.getInventory().firstEmpty() == -1) {
+        if (player.getInventory().firstEmpty() == -1)
+        {
             player.getWorld().dropItemNaturally(player.getLocation(), item);
-        } else {
+        }
+        else
+        {
             player.getInventory().addItem(item);
         }
-        if (!silent) MixinMessage.get().msgOne(player, MConf.get().receivedTool, amount, type.getName());
+        if (!silent)
+        {
+            MixinMessage.get().msgOne(player, MConf.get().receivedTool, amount, type.getName());
+        }
         MixinMessage.get().msgOne(sender, MConf.get().gaveTool, player.getName(), amount, type.getName());
     }
 

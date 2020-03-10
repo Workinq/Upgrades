@@ -1,5 +1,5 @@
 name: ${project.name}
-main: ${project.groupId}.UpgradesPlugin
+main: ${project.groupId}.${project.artifactId}
 version: ${project.version}
-author: Kieraaaan
-depend: [MassiveCore, Factions, ShopGUIPlus, Vault, mcMMO, Tokens, Outpost, MobExtras]
+author: ${project.author}
+depend: [MassiveCore, Factions, ShopGUIPlus, Vault, Coins]

@@ -14,19 +14,23 @@ public enum Perm implements Identified {
     private final String id;
 
     @Override
-    public String getId() {
+    public String getId()
+    {
         return this.id;
     }
 
-    Perm() {
+    Perm()
+    {
         this.id = PermissionUtil.createPermissionId(UpgradesPlugin.get(), this);
     }
 
-    public boolean has(Permissible permissible, boolean verboose) {
+    public boolean has(Permissible permissible, boolean verboose)
+    {
         return PermissionUtil.hasPermission(permissible, this, verboose);
     }
 
-    public boolean has(Permissible permissible) {
+    public boolean has(Permissible permissible)
+    {
         return PermissionUtil.hasPermission(permissible, this);
     }
 

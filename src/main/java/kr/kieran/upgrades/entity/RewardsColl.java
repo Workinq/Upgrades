@@ -6,19 +6,29 @@ public class RewardsColl extends Coll<Rewards> {
 
     private static RewardsColl i = new RewardsColl();
 
-    public static RewardsColl get() {
+    public static RewardsColl get()
+    {
         return RewardsColl.i;
     }
 
     @Override
-    public void onTick() {
+    public void onTick()
+    {
         super.onTick();
     }
 
     @Override
-    public void setActive(boolean active) {
-        try { super.setActive(active); } catch (IllegalStateException ignored) {}
-        if (!active) {
+    public void setActive(boolean active)
+    {
+        try
+        {
+            super.setActive(active);
+        }
+        catch (IllegalStateException ignored)
+        {
+        }
+        if (!active)
+        {
             return;
         }
         Rewards.i = get("instance", true);

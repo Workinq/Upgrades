@@ -20,12 +20,14 @@ public class ActionInspectSellWand extends ChestActionAbstract {
 
     private ItemStack item;
 
-    public ActionInspectSellWand(ItemStack item) {
+    public ActionInspectSellWand(ItemStack item)
+    {
         this.item = item;
     }
 
     @Override
-    public boolean onClick(InventoryClickEvent event) {
+    public boolean onClick(InventoryClickEvent event)
+    {
         Player player = (Player) event.getWhoClicked();
         Inventory inventory = Bukkit.createInventory(null, 45, Txt.parse(MConf.get().inventoryName));
         ChestGui chestGui = ChestGui.getCreative(inventory);
@@ -33,7 +35,7 @@ public class ActionInspectSellWand extends ChestActionAbstract {
         chestGui.setAutoremoving(true);
         chestGui.setSoundOpen(null);
         chestGui.setSoundClose(null);
-        ItemStack item = new ItemBuilder(Material.STAINED_GLASS_PANE).data(5);
+        ItemStack item = new ItemBuilder(Material.STAINED_GLASS_PANE).data((byte) 5);
         chestGui.getInventory().setItem(29, new ItemBuilder(item.clone()).name(Txt.parse("&7Level &610")).setLore(Txt.parse(MUtil.list("&7Cost: &6" + String.format("%,d", Levels.get().getPriceByLevelRange(0, 10, ToolType.SELL_WAND)) + " tokens", "&7Benefits:", "  &7+ &65% sell boost"))));
         chestGui.getInventory().setItem(30, new ItemBuilder(item.clone()).name(Txt.parse("&7Level &620")).setLore(Txt.parse(MUtil.list("&7Cost: &6" + String.format("%,d", Levels.get().getPriceByLevelRange(10, 20, ToolType.SELL_WAND)) + " tokens", "&7Benefits:", "  &7+ &65% sell boost"))));
         chestGui.getInventory().setItem(31, new ItemBuilder(item.clone()).name(Txt.parse("&7Level &630")).setLore(Txt.parse(MUtil.list("&7Cost: &6" + String.format("%,d", Levels.get().getPriceByLevelRange(20, 30, ToolType.SELL_WAND)) + " tokens", "&7Benefits:", "  &7+ &65% sell boost"))));

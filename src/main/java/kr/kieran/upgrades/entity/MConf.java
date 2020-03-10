@@ -3,6 +3,7 @@ package kr.kieran.upgrades.entity;
 import com.massivecraft.massivecore.command.editor.annotation.EditorName;
 import com.massivecraft.massivecore.store.Entity;
 import com.massivecraft.massivecore.util.MUtil;
+import org.bukkit.Material;
 
 import java.util.List;
 
@@ -42,13 +43,22 @@ public class MConf extends Entity<MConf> {
     public String simpleHarvesterHoe = "&6&lHarvester Hoe";
     public String simpleSellWand = "&6&lSell Wand";
     public String simpleFishingRod = "&6&lFishing Rod";
+    public String upgradeByOne = "&7Increase level by &61";
+    public String upgradeByTen = "&7Increase level by &610";
+    public List<String> upgradeLore = MUtil.list("", "&7Level up your %tool%", "&7by %levels% levels, costing: &6%tokens% tokens&7.");
+    public Material fillerMaterial = Material.STAINED_GLASS_PANE;
+    public byte fillerData = (byte) 7;
+    public String fillerName = " ";
+    public String notEnoughMoney = "<b>You do not have enough money to use this. You need $%.1f more.";
 
-    public static MConf get() {
+    public static MConf get()
+    {
         return MConf.i;
     }
 
     @Override
-    public MConf load(MConf that) {
+    public MConf load(MConf that)
+    {
         super.load(that);
         return this;
     }

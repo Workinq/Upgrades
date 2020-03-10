@@ -24,7 +24,8 @@ public class Levels extends Entity<Levels> {
     public int maxHarvesterHoeLevel;
     public int maxSellWandLevel;
 
-    public Levels() {
+    public Levels()
+    {
         this.fishingRodPrices = new MassiveList<>();
         this.harvesterHoePrices = new MassiveList<>();
         this.sellWandPrices = new MassiveList<>();
@@ -34,41 +35,62 @@ public class Levels extends Entity<Levels> {
         initLevels();
     }
 
-    public static Levels get() {
+    public static Levels get()
+    {
         return Levels.i;
     }
 
-    private void initLevels() {
-        for (int i = 0; i <= 70; i++) {
-            this.fishingRodPrices.add(MUtil.map(i, i * 10000));
-            this.harvesterHoePrices.add(MUtil.map(i, i * 10000));
+    private void initLevels()
+    {
+        for (int i = 0; i <= 70; i++)
+        {
+            fishingRodPrices.add(MUtil.map(i, i * 10000));
+            harvesterHoePrices.add(MUtil.map(i, i * 10000));
         }
-        for (int i = 0; i <= 50; i++) {
-            this.sellWandPrices.add(MUtil.map(i, i * 10000));
+        for (int i = 0; i <= 50; i++)
+        {
+            sellWandPrices.add(MUtil.map(i, i * 10000));
         }
         this.changed();
     }
 
-    public int getPriceByLevel(int level, ToolType type) {
-        switch (type) {
+    public int getPriceByLevel(int level, ToolType type)
+    {
+        switch (type)
+        {
             case FISHING_ROD:
-                for (Map<Integer, Integer> fishingRodPrice : fishingRodPrices) {
-                    for (Integer lvl : fishingRodPrice.keySet()) {
-                        if (level == lvl) return fishingRodPrice.get(lvl);
+                for (Map<Integer, Integer> fishingRodPrice : fishingRodPrices)
+                {
+                    for (Integer lvl : fishingRodPrice.keySet())
+                    {
+                        if (level == lvl)
+                        {
+                            return fishingRodPrice.get(lvl);
+                        }
                     }
                 }
                 break;
             case HARVESTER_HOE:
-                for (Map<Integer, Integer> harvesterHoePrice : harvesterHoePrices) {
-                    for (Integer lvl : harvesterHoePrice.keySet()) {
-                        if (level == lvl) return harvesterHoePrice.get(lvl);
+                for (Map<Integer, Integer> harvesterHoePrice : harvesterHoePrices)
+                {
+                    for (Integer lvl : harvesterHoePrice.keySet())
+                    {
+                        if (level == lvl)
+                        {
+                            return harvesterHoePrice.get(lvl);
+                        }
                     }
                 }
                 break;
             case SELL_WAND:
-                for (Map<Integer, Integer> sellWandPrice : sellWandPrices) {
-                    for (Integer lvl : sellWandPrice.keySet()) {
-                        if (level == lvl) return sellWandPrice.get(lvl);
+                for (Map<Integer, Integer> sellWandPrice : sellWandPrices)
+                {
+                    for (Integer lvl : sellWandPrice.keySet())
+                    {
+                        if (level == lvl)
+                        {
+                            return sellWandPrice.get(lvl);
+                        }
                     }
                 }
                 break;
@@ -76,16 +98,20 @@ public class Levels extends Entity<Levels> {
         return -1;
     }
 
-    public int getPriceByLevelRange(int from, int to, ToolType type) {
+    public int getPriceByLevelRange(int from, int to, ToolType type)
+    {
         int total = 0;
-        for (int i = from; i <= to; i++) {
+        for (int i = from; i <= to; i++)
+        {
             total += getPriceByLevel(i, type);
         }
         return total;
     }
 
-    public int getMaxLevel(ToolType type) {
-        switch (type) {
+    public int getMaxLevel(ToolType type)
+    {
+        switch (type)
+        {
             case FISHING_ROD:
                 return maxFishingRodLevel;
             case HARVESTER_HOE:
@@ -98,7 +124,8 @@ public class Levels extends Entity<Levels> {
     }
 
     @Override
-    public Levels load(Levels that) {
+    public Levels load(Levels that)
+    {
         super.load(that);
         return this;
     }

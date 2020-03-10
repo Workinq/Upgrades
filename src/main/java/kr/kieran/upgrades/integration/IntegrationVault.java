@@ -6,16 +6,19 @@ public class IntegrationVault extends Integration {
 
     private static IntegrationVault i = new IntegrationVault();
 
-    private IntegrationVault() {
+    private IntegrationVault()
+    {
         this.setPluginName("Vault");
     }
 
-    public static IntegrationVault get() {
+    public static IntegrationVault get()
+    {
         return i;
     }
 
     @Override
-    public EngineVault getEngine() {
+    public EngineVault getEngine()
+    {
         return EngineVault.get();
     }
 

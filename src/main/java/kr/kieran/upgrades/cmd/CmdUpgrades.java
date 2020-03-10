@@ -25,32 +25,33 @@ public class CmdUpgrades extends MassiveCommand {
 
     private static CmdUpgrades i = new CmdUpgrades();
 
-    public CmdUpgrades() {
+    public CmdUpgrades()
+    {
         this.addRequirements(RequirementIsPlayer.get());
         this.addRequirements(RequirementHasPerm.get(Perm.UPGRADES));
     }
 
-    public static CmdUpgrades get() {
+    public static CmdUpgrades get()
+    {
         return CmdUpgrades.i;
     }
 
     @Override
-    public List<String> getAliases() {
+    public List<String> getAliases()
+    {
         return MConf.get().cmdAliases;
     }
 
     @Override
-    public void perform() {
-        if (me.getItemInHand() == null
-                || (me.getItemInHand().getType() != Tools.get().fishingRodMaterial && me.getItemInHand().getType() != Tools.get().harvesterHoeMaterial && me.getItemInHand().getType() != Tools.get().sellWandMaterial)
-                || !me.getItemInHand().hasItemMeta()
-                || !me.getItemInHand().getItemMeta().hasDisplayName()
-                || !me.getItemInHand().getItemMeta().hasLore()
-                || !me.getItemInHand().getItemMeta().getDisplayName().equals(Txt.parse(Tools.get().fishingRodName)) && !me.getItemInHand().getItemMeta().getDisplayName().equals(Txt.parse(Tools.get().harvesterHoeName)) && !me.getItemInHand().getItemMeta().getDisplayName().equals(Txt.parse(Tools.get().sellWandName))) {
+    public void perform()
+    {
+        if (me.getItemInHand() == null || (me.getItemInHand().getType() != Tools.get().fishingRodMaterial && me.getItemInHand().getType() != Tools.get().harvesterHoeMaterial && me.getItemInHand().getType() != Tools.get().sellWandMaterial) || !me.getItemInHand().hasItemMeta() || !me.getItemInHand().getItemMeta().hasDisplayName() || !me.getItemInHand().getItemMeta().hasLore() || !me.getItemInHand().getItemMeta().getDisplayName().equals(Txt.parse(Tools.get().fishingRodName)) && !me.getItemInHand().getItemMeta().getDisplayName().equals(Txt.parse(Tools.get().harvesterHoeName)) && !me.getItemInHand().getItemMeta().getDisplayName().equals(Txt.parse(Tools.get().sellWandName)))
+        {
             MixinMessage.get().msgOne(me, MConf.get().mustHoldItem);
             return;
         }
-        if (me.getItemInHand().getAmount() > 1) {
+        if (me.getItemInHand().getAmount() > 1)
+        {
             MixinMessage.get().msgOne(me, MConf.get().tooManyItems);
             return;
         }

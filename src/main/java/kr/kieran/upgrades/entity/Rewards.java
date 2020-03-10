@@ -15,19 +15,23 @@ public class Rewards extends Entity<Rewards> {
     protected static transient Rewards i;
     public MassiveMapDef<Integer, List<Reward>> rewards = new MassiveMapDef<>();
 
-    public Rewards() {
+    public Rewards()
+    {
         initRewards();
     }
 
-    public static Rewards get() {
+    public static Rewards get()
+    {
         return Rewards.i;
     }
 
-    public List<Reward> getRewardsByLevel(int level) {
+    public List<Reward> getRewardsByLevel(int level)
+    {
         return rewards.get(level);
     }
 
-    private void initRewards() {
+    private void initRewards()
+    {
         List<Reward> rewardList = new ArrayList<>();
         rewardList.add(new Reward(MUtil.list("ss give %player% skeleton 1", "rawmsg %player% &8(&6!&8) &7You received a skeleton spawner from fishing!"), 0.010D));
         rewardList.add(new Reward(MUtil.list("ss give %player% zombie 1", "rawmsg %player% &8(&6!&8) &7You received a zombie spawner from fishing!"), 0.025D));
@@ -52,12 +56,14 @@ public class Rewards extends Entity<Rewards> {
         this.changed();
     }
 
-    public void setRewards(MassiveMapDef<Integer, List<Reward>> rewards) {
+    public void setRewards(MassiveMapDef<Integer, List<Reward>> rewards)
+    {
         this.rewards = rewards;
     }
 
     @Override
-    public Rewards load(Rewards that) {
+    public Rewards load(Rewards that)
+    {
         super.load(that);
         this.setRewards(that.rewards);
         return this;

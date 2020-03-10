@@ -10,28 +10,37 @@ import java.util.List;
 
 public class LevelUtil {
 
-    public static int calculateCost(int level, int nextLevel, ToolType type) {
-        int total = 0;
-        int newLevel = level + nextLevel;
-        if (newLevel > Levels.get().getMaxLevel(type)) newLevel = Levels.get().getMaxLevel(type);
-        for (int i = level; i <= newLevel; i++) total += Levels.get().getPriceByLevel(i, type);
+    public static int calculateCost(int level, int nextLevel, ToolType type)
+    {
+        int total = 0, newLevel = level + nextLevel;
+        if (newLevel > Levels.get().getMaxLevel(type))
+        {
+            newLevel = Levels.get().getMaxLevel(type);
+        }
+        for (int i = level; i <= newLevel; i++)
+        {
+            total += Levels.get().getPriceByLevel(i, type);
+        }
         return total;
     }
 
-    private static int roundDown(double number) {
+    private static int roundDown(double number)
+    {
         double result = number / (double) 10;
         result = Math.floor(result);
         result *= 10;
         return (int) result;
     }
 
-    public static void increaseSellWand(ItemStack item, int newLevel) {
+    public static void increaseSellWand(ItemStack item, int newLevel)
+    {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = item.getItemMeta().getLore();
         lore.set(7, Txt.parse("&7Sell wand level: &6" + newLevel));
         meta.setLore(lore);
         item.setItemMeta(meta);
-        switch (LevelUtil.roundDown(newLevel)) {
+        switch (roundDown(newLevel))
+        {
             case 10:
                 increaseSellMultiplier(item, 80);
                 break;
@@ -53,13 +62,15 @@ public class LevelUtil {
         }
     }
 
-    public static void increaseHarvesterHoe(ItemStack item, int newLevel) {
+    public static void increaseHarvesterHoe(ItemStack item, int newLevel)
+    {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = item.getItemMeta().getLore();
         lore.set(7, Txt.parse("&7Harvester hoe level: &6" + newLevel));
         meta.setLore(lore);
         item.setItemMeta(meta);
-        switch (LevelUtil.roundDown(newLevel)) {
+        switch (roundDown(newLevel))
+        {
             case 10:
                 increaseTokenChance(item, 80);
                 break;
@@ -89,13 +100,15 @@ public class LevelUtil {
         }
     }
 
-    public static void increaseFishingRod(ItemStack item, int newLevel) {
+    public static void increaseFishingRod(ItemStack item, int newLevel)
+    {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = item.getItemMeta().getLore();
         lore.set(7, Txt.parse("&7Fishing rod level: &6" + newLevel));
         meta.setLore(lore);
         item.setItemMeta(meta);
-        switch (LevelUtil.roundDown(newLevel)) {
+        switch (roundDown(newLevel))
+        {
             case 10:
                 increaseTokenChance(item, 80);
                 break;
@@ -125,7 +138,8 @@ public class LevelUtil {
         }
     }
 
-    private static void increaseTokenChance(ItemStack item, int newChance) {
+    private static void increaseTokenChance(ItemStack item, int newChance)
+    {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = item.getItemMeta().getLore();
         lore.set(6, Txt.parse("&7Token chance: &6" + newChance + "%"));
@@ -133,7 +147,8 @@ public class LevelUtil {
         item.setItemMeta(meta);
     }
 
-    private static void increaseExplosive(ItemStack item, int newLevel) {
+    private static void increaseExplosive(ItemStack item, int newLevel)
+    {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = item.getItemMeta().getLore();
         lore.set(5, Txt.parse("&7Explosive level: &6" + newLevel));
@@ -141,7 +156,8 @@ public class LevelUtil {
         item.setItemMeta(meta);
     }
 
-    private static void increaseSellMultiplier(ItemStack item, int newMultiplier) {
+    private static void increaseSellMultiplier(ItemStack item, int newMultiplier)
+    {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = item.getItemMeta().getLore();
         lore.set(6, Txt.parse("&7Sell multiplier: &6" + newMultiplier + "%"));
@@ -149,7 +165,8 @@ public class LevelUtil {
         item.setItemMeta(meta);
     }
 
-    private static void increaseFishingRewards(ItemStack item, int newReward) {
+    private static void increaseFishingRewards(ItemStack item, int newReward)
+    {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = item.getItemMeta().getLore();
         lore.set(5, Txt.parse("&7Fishing reward level: &6" + newReward));

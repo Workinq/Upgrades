@@ -3,6 +3,7 @@ package kr.kieran.upgrades.util;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -13,111 +14,139 @@ import java.util.List;
 
 public class ItemBuilder extends ItemStack {
 
-    public ItemBuilder(Material mat) {
-        super(mat);
+    public ItemBuilder(Material material)
+    {
+        super(material);
     }
 
-    public ItemBuilder(ItemStack is) {
-        super(is);
+    public ItemBuilder(ItemStack item)
+    {
+        super(item);
     }
 
-    public ItemBuilder amount(int amount) {
-        this.setAmount(amount);
+    public ItemBuilder amount(int amount)
+    {
+        setAmount(amount);
         return this;
     }
 
-    public ItemBuilder name(String name) {
-        ItemMeta meta = this.getItemMeta();
+    public ItemBuilder name(String name)
+    {
+        ItemMeta meta = getItemMeta();
         meta.setDisplayName(name);
-        this.setItemMeta(meta);
+        setItemMeta(meta);
         return this;
     }
 
-    public ItemBuilder setLore(List<String> text) {
-        ItemMeta meta = this.getItemMeta();
+    public ItemBuilder setLore(List<String> text)
+    {
+        ItemMeta meta = getItemMeta();
         List<String> lore = meta.getLore();
-        if (lore == null) {
+        if (lore == null)
+        {
             lore = new ArrayList<>();
         }
         lore.addAll(text);
         meta.setLore(lore);
-        this.setItemMeta(meta);
+        setItemMeta(meta);
         return this;
     }
 
-    public ItemBuilder addLore(String text) {
-        ItemMeta meta = this.getItemMeta();
+    public ItemBuilder addLore(String text)
+    {
+        ItemMeta meta = getItemMeta();
         List<String> lore = meta.getLore();
-        if (lore == null) {
+        if (lore == null)
+        {
             lore = new ArrayList<>();
         }
         lore.add(text);
         meta.setLore(lore);
-        this.setItemMeta(meta);
+        setItemMeta(meta);
         return this;
     }
 
-    public ItemBuilder lore(String text) {
-        ItemMeta meta = this.getItemMeta();
+    public ItemBuilder lore(String text)
+    {
+        ItemMeta meta = getItemMeta();
         List<String> lore = meta.getLore();
-        if (lore == null) {
+        if (lore == null)
+        {
             lore = new ArrayList<>();
         }
         lore.add(text);
         meta.setLore(lore);
-        this.setItemMeta(meta);
+        setItemMeta(meta);
         return this;
     }
 
-    public ItemBuilder unbreakable(boolean unbreakable) {
-        ItemMeta meta = this.getItemMeta();
+    public ItemBuilder unbreakable(boolean unbreakable)
+    {
+        ItemMeta meta = getItemMeta();
         meta.spigot().setUnbreakable(unbreakable);
-        this.setItemMeta(meta);
+        setItemMeta(meta);
         return this;
     }
 
-    public ItemBuilder durability(int durability) {
-        this.setDurability((short) durability);
+    public ItemBuilder durability(short durability)
+    {
+        setDurability(durability);
         return this;
     }
 
-    public ItemBuilder data(int data) {
-        this.setData(new MaterialData(this.getType(), (byte) data));
+    public ItemStack flag(ItemFlag flag)
+    {
+        ItemMeta meta = getItemMeta();
+        meta.addItemFlags(flag);
+        setItemMeta(meta);
         return this;
     }
 
-    public ItemBuilder enchantment(Enchantment enchantment, int level) {
-        this.addUnsafeEnchantment(enchantment, level);
+    public ItemBuilder data(byte data)
+    {
+        setData(new MaterialData(getType(), data));
         return this;
     }
 
-    public ItemBuilder enchantment(Enchantment enchantment) {
-        this.addUnsafeEnchantment(enchantment, 1);
+    public ItemBuilder enchantment(Enchantment enchantment, int level)
+    {
+        addUnsafeEnchantment(enchantment, level);
         return this;
     }
 
-    public ItemBuilder type(Material material) {
-        this.setType(material);
+    public ItemBuilder enchantment(Enchantment enchantment)
+    {
+        addUnsafeEnchantment(enchantment, 1);
         return this;
     }
 
-    public ItemBuilder clearLore() {
-        ItemMeta meta = this.getItemMeta();
+    public ItemBuilder type(Material material)
+    {
+        setType(material);
+        return this;
+    }
+
+    public ItemBuilder clearLore()
+    {
+        ItemMeta meta = getItemMeta();
         meta.setLore(new ArrayList<>());
-        this.setItemMeta(meta);
+        setItemMeta(meta);
         return this;
     }
 
-    public ItemBuilder clearEnchantments() {
-        this.getEnchantments().keySet().forEach(this::removeEnchantment);
+    public ItemBuilder clearEnchantments()
+    {
+        getEnchantments().keySet().forEach(this::removeEnchantment);
         return this;
     }
 
-    public ItemBuilder color(Color color) {
-        if (getType() == Material.LEATHER_BOOTS || getType() == Material.LEATHER_CHESTPLATE || getType() == Material.LEATHER_HELMET || getType() == Material.LEATHER_LEGGINGS) {
-            LeatherArmorMeta meta = (LeatherArmorMeta) this.getItemMeta();
+    public ItemBuilder color(Color color)
+    {
+        if (getType() == Material.LEATHER_BOOTS || getType() == Material.LEATHER_CHESTPLATE || getType() == Material.LEATHER_HELMET || getType() == Material.LEATHER_LEGGINGS)
+        {
+            LeatherArmorMeta meta = (LeatherArmorMeta) getItemMeta();
             meta.setColor(color);
-            this.setItemMeta(meta);
+            setItemMeta(meta);
             return this;
         }
         throw new IllegalArgumentException("color() only applicable for leather armor!");

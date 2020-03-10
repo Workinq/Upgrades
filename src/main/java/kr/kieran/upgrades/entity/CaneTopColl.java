@@ -6,19 +6,29 @@ public class CaneTopColl extends Coll<CaneTop> {
 
     private static CaneTopColl i = new CaneTopColl();
 
-    public static CaneTopColl get() {
+    public static CaneTopColl get()
+    {
         return CaneTopColl.i;
     }
 
     @Override
-    public void onTick() {
+    public void onTick()
+    {
         super.onTick();
     }
 
     @Override
-    public void setActive(boolean active) {
-        try { super.setActive(active); } catch (IllegalStateException ignored) {}
-        if (!active) {
+    public void setActive(boolean active)
+    {
+        try
+        {
+            super.setActive(active);
+        }
+        catch (IllegalStateException ignored)
+        {
+        }
+        if (!active)
+        {
             return;
         }
         CaneTop.i = get("instance", true);

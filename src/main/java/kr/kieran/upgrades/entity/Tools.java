@@ -38,12 +38,14 @@ public class Tools extends Entity<Tools> {
     public Material trenchPickaxeMaterial = Material.DIAMOND_PICKAXE;
     public List<String> trenchBlacklistedBlocks = MUtil.list("BEDROCK", "MOB_SPAWNER", "BEACON", "CHEST", "TRAPPED_CHEST");
 
-    public static Tools get() {
+    public static Tools get()
+    {
         return i;
     }
 
     @Override
-    public Tools load(Tools that) {
+    public Tools load(Tools that)
+    {
         super.load(that);
         return this;
     }

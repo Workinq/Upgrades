@@ -3,7 +3,6 @@ package kr.kieran.upgrades.action;
 import com.massivecraft.massivecore.chestgui.ChestActionAbstract;
 import com.massivecraft.massivecore.chestgui.ChestGui;
 import com.massivecraft.massivecore.mixin.MixinMessage;
-import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.Txt;
 import kr.kieran.upgrades.action.confirm.ActionConfirmFishingRod;
 import kr.kieran.upgrades.action.inspect.ActionInspectFishingRod;
@@ -23,20 +22,26 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ActionFishingRodGui extends ChestActionAbstract {
 
     private ItemStack item;
     private int level;
 
-    public ActionFishingRodGui(ItemStack item) {
+    public ActionFishingRodGui(ItemStack item)
+    {
         this.item = item;
         this.level = Integer.parseInt(ChatColor.stripColor(item.getItemMeta().getLore().get(7)).replaceAll("[^0-9]", ""));
     }
 
     @Override
-    public boolean onClick(InventoryClickEvent event) {
+    public boolean onClick(InventoryClickEvent event)
+    {
         Player player = (Player) event.getWhoClicked();
-        if (!ItemUtil.isItemValid(player.getItemInHand(), Tools.get().fishingRodMaterial, Tools.get().fishingRodName)) {
+        if (!ItemUtil.isItemValid(player.getItemInHand(), Tools.get().fishingRodMaterial, Tools.get().fishingRodName))
+        {
             player.closeInventory();
             MixinMessage.get().msgOne(player, MConf.get().invalidFishingRod);
             return true;
@@ -49,8 +54,18 @@ public class ActionFishingRodGui extends ChestActionAbstract {
         chestGui.setSoundOpen(null);
         chestGui.setSoundClose(null);
         chestGui.getInventory().setItem(0, item);
-        chestGui.getInventory().setItem(3, new ItemBuilder(Material.STAINED_GLASS_PANE).data((byte) 5).name(Txt.parse("&7Increase level by &61")).setLore(MUtil.list(" ", Txt.parse("&7Level up your fishing rod"), Txt.parse("&7by 1 level, costing: &6" + String.format("%,d", LevelUtil.calculateCost(level, 1, ToolType.FISHING_ROD)) + " tokens&7."))));
-        chestGui.getInventory().setItem(4, new ItemBuilder(Material.STAINED_GLASS_PANE).data((byte) 5).name(Txt.parse("&7Increase level by &610")).setLore(MUtil.list(" ", Txt.parse("&7Level up your fishing rod"), Txt.parse("&7by 10 levels, costing: &6" + String.format("%,d", LevelUtil.calculateCost(level, 10, ToolType.FISHING_ROD)) + " tokens&7."))));
+        List<String> lore = new ArrayList<>();
+        for (String string : MConf.get().upgradeLore)
+        {
+            lore.add(Txt.parse(string.replace("%tool%", "fishing rod").replace("%levels%", "1").replace("%tokens%", String.format("%,d", LevelUtil.calculateCost(level, 1, ToolType.FISHING_ROD)))));
+        }
+        chestGui.getInventory().setItem(3, new ItemBuilder(Material.STAINED_GLASS_PANE).data((byte) 5).name(Txt.parse(MConf.get().upgradeByOne)).setLore(lore));
+        lore = new ArrayList<>();
+        for (String string : MConf.get().upgradeLore)
+        {
+            lore.add(Txt.parse(string.replace("%tool%", "fishing rod").replace("%levels%", "10").replace("%tokens%", String.format("%,d", LevelUtil.calculateCost(level, 10, ToolType.FISHING_ROD)))));
+        }
+        chestGui.getInventory().setItem(4, new ItemBuilder(Material.STAINED_GLASS_PANE).data((byte) 5).name(Txt.parse(MConf.get().upgradeByTen)).setLore(lore));
         chestGui.setAction(0, new ActionInspectFishingRod(item));
         chestGui.setAction(3, new ActionConfirmFishingRod(level, 1, item));
         chestGui.setAction(4, new ActionConfirmFishingRod(level, 10, item));
